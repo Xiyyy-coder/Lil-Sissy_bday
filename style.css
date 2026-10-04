@@ -3813,6 +3813,7 @@ body {
 @media (max-width: 800px) {
 
     .navbar {
+    padding: 6px 10px;
 
         width:
             calc(100% - 20px);
@@ -4051,6 +4052,7 @@ body {
      */
 
     .navbar {
+    padding: 6px 10px;
 
         top:
             10px;
@@ -4085,8 +4087,7 @@ body {
         margin:
             0;
 
-        padding:
-            0;
+
 
     }
 
