@@ -17,38 +17,52 @@ ACTIVE NAVIGATION WHILE SCROLLING
 
 const sections = document.querySelectorAll("section[id]");
 
-const observer = new IntersectionObserver(
-entries => {
-entries.forEach(entry => {
+function updateActiveNav() {
 
-        if (!entry.isIntersecting) {
-            return;
+    const scrollPosition =
+        window.scrollY + window.innerHeight * 0.35;
+
+    let currentSection = null;
+
+    sections.forEach(section => {
+
+        const sectionTop =
+            section.offsetTop;
+
+        if (scrollPosition >= sectionTop) {
+            currentSection = section;
         }
 
-        const id =
-            entry.target.dataset.nav ||
-            entry.target.getAttribute("id");
+    });
 
-        navItems.forEach(item => {
+    if (!currentSection) {
+        return;
+    }
 
-            item.classList.remove("active");
+    const id =
+        currentSection.dataset.nav ||
+        currentSection.id;
 
-            if (item.getAttribute("href") === `#${id}`) {
-                item.classList.add("active");
-            }
+    navItems.forEach(item => {
 
-        });
+        item.classList.toggle(
+            "active",
+            item.getAttribute("href") === `#${id}`
+        );
 
     });
-},
-{
-    threshold: 0.35
 }
 
+window.addEventListener(
+    "scroll",
+    updateActiveNav,
+    { passive: true }
 );
 
-sections.forEach(section => observer.observe(section));
-
+window.addEventListener(
+    "load",
+    updateActiveNav
+);
 /* =========================================================
 MEMORY HEARTS
 ========================================================= */
